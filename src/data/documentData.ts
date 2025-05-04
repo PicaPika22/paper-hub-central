@@ -1,10 +1,9 @@
-
 import { 
   FileText, 
   File, 
   ImageIcon, 
   FileArchive, 
-  FilePdf, 
+  FileType, 
   FileSpreadsheet 
 } from "lucide-react";
 
@@ -50,7 +49,7 @@ export const configData = [
 ];
 
 export const fileTypeIcons = {
-  pdf: FilePdf,
+  pdf: FileType,
   doc: FileText,
   image: ImageIcon,
   archive: FileArchive,

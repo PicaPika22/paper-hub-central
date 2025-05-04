@@ -53,7 +53,7 @@ const Header = ({
       </div>
       
       <div className="flex items-center justify-between border-t px-4 py-2">
-        <Button variant="primary" size="sm" className="bg-primary text-white hover:bg-primary/90">
+        <Button variant="default" size="sm" className="bg-primary text-white hover:bg-primary/90">
           <Plus className="h-4 w-4 mr-2" />
           Thêm văn bản mới
         </Button>
