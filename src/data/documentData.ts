@@ -1,3 +1,4 @@
+
 import { 
   FileText, 
   File, 
@@ -31,16 +32,25 @@ export type Document = {
   department: string;
   date: string;
   fileType: DocumentFileType;
+  description?: string;
 };
 
-export const categoryData = [
+export interface Category {
+  id: DocumentCategory;
+  label: string;
+  count: number;
+  icon: any;
+  description?: string;
+}
+
+export const categoryData: Category[] = [
   { id: "all", label: "Tất cả văn bản", count: 8, icon: FileText },
-  { id: "internal", label: "Văn bản nội bộ", count: 3, icon: FileText },
-  { id: "contract", label: "Hợp đồng", count: 2, icon: File },
-  { id: "meeting", label: "Biên bản họp", count: 1, icon: FileText },
-  { id: "policy", label: "Quy định & Chính sách", count: 1, icon: FileText },
-  { id: "financial", label: "Báo cáo tài chính", count: 1, icon: FileSpreadsheet },
-  { id: "marketing", label: "Tài liệu Marketing", count: 0, icon: ImageIcon },
+  { id: "internal", label: "Văn bản nội bộ", count: 3, icon: FileText, description: "Văn bản nội bộ trong công ty" },
+  { id: "contract", label: "Hợp đồng", count: 2, icon: File, description: "Các hợp đồng với đối tác, khách hàng" },
+  { id: "meeting", label: "Biên bản họp", count: 1, icon: FileText, description: "Biên bản cuộc họp nội bộ" },
+  { id: "policy", label: "Quy định & Chính sách", count: 1, icon: FileText, description: "Các quy định và chính sách của công ty" },
+  { id: "financial", label: "Báo cáo tài chính", count: 1, icon: FileSpreadsheet, description: "Báo cáo tài chính định kỳ" },
+  { id: "marketing", label: "Tài liệu Marketing", count: 0, icon: ImageIcon, description: "Tài liệu marketing và truyền thông" },
 ];
 
 export const configData = [
@@ -57,7 +67,7 @@ export const fileTypeIcons = {
   text: FileText,
 };
 
-export const documents: Document[] = [
+export let documents: Document[] = [
   {
     id: "1",
     title: "Tài liệu 01",
@@ -123,6 +133,68 @@ export const documents: Document[] = [
     fileType: "text",
   },
 ];
+
+// CRUD operations
+export const addDocument = (document: Document) => {
+  documents = [...documents, document];
+  updateCategoryCounts();
+  return documents;
+};
+
+export const updateDocument = (document: Document) => {
+  documents = documents.map((doc) => 
+    doc.id === document.id ? document : doc
+  );
+  updateCategoryCounts();
+  return documents;
+};
+
+export const deleteDocument = (id: string) => {
+  documents = documents.filter((doc) => doc.id !== id);
+  updateCategoryCounts();
+  return documents;
+};
+
+// Update category counts based on documents array
+export const updateCategoryCounts = () => {
+  // Update 'all' category count
+  const allCategory = categoryData.find(cat => cat.id === "all");
+  if (allCategory) {
+    allCategory.count = documents.length;
+  }
+  
+  // Update other category counts
+  categoryData.forEach(category => {
+    if (category.id !== "all") {
+      category.count = documents.filter(doc => doc.category === category.id).length;
+    }
+  });
+};
+
+export const addCategory = (category: Omit<Category, 'count'>) => {
+  const newCategory = { ...category, count: 0 };
+  categoryData.push(newCategory as Category);
+  return categoryData;
+};
+
+export const updateCategory = (category: Category) => {
+  const index = categoryData.findIndex(cat => cat.id === category.id);
+  if (index !== -1) {
+    categoryData[index] = { ...category };
+  }
+  return categoryData;
+};
+
+export const deleteCategory = (id: DocumentCategory) => {
+  // Cannot delete "all" category
+  if (id === "all") return categoryData;
+  
+  const index = categoryData.findIndex(cat => cat.id === id);
+  if (index !== -1) {
+    categoryData.splice(index, 1);
+  }
+  return categoryData;
+};
 
 export const getCategoryLabel = (categoryId: DocumentCategory): string => {
   const category = categoryData.find(cat => cat.id === categoryId);

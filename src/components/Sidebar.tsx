@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { categoryData, configData } from "@/data/documentData";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -18,6 +19,22 @@ const Sidebar = ({
   activeCategory,
   setActiveCategory,
 }: SidebarProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleCategoryClick = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    navigate('/');
+  };
+
+  const handleConfigClick = (configId: string) => {
+    if (configId === "categories") {
+      navigate('/category-management');
+    } else if (configId === "departments") {
+      navigate('/department-management');
+    }
+  };
+
   return (
     <>
       <div
@@ -39,11 +56,11 @@ const Sidebar = ({
                   key={category.id}
                   className={cn(
                     "flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors",
-                    activeCategory === category.id
+                    activeCategory === category.id && location.pathname === "/"
                       ? "bg-white bg-opacity-20 text-white"
                       : "text-gray-200 hover:bg-white hover:bg-opacity-10 hover:text-white"
                   )}
-                  onClick={() => setActiveCategory(category.id)}
+                  onClick={() => handleCategoryClick(category.id)}
                 >
                   <category.icon className="mr-2 h-4 w-4" />
                   <span className="flex-1">{category.label}</span>
@@ -60,7 +77,14 @@ const Sidebar = ({
               {configData.map((item) => (
                 <button
                   key={item.id}
-                  className="flex w-full items-center rounded-md px-3 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-white hover:bg-opacity-10 hover:text-white"
+                  className={cn(
+                    "flex w-full items-center rounded-md px-3 py-2 text-left text-sm transition-colors",
+                    (location.pathname === "/category-management" && item.id === "categories") ||
+                    (location.pathname === "/department-management" && item.id === "departments")
+                      ? "bg-white bg-opacity-20 text-white"
+                      : "text-gray-200 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                  )}
+                  onClick={() => handleConfigClick(item.id)}
                 >
                   <item.icon className="mr-2 h-4 w-4" />
                   <span>{item.label}</span>
