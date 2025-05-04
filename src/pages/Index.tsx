@@ -8,6 +8,7 @@ import AddDocumentDialog from "@/components/AddDocumentDialog";
 import { Document, addDocument, deleteDocument, getDocumentsByCategory, updateDocument } from "@/data/documentData";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { FileQuestion } from "lucide-react";
 
 const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,10 +65,10 @@ const Index = () => {
           onAddDocument={handleAddDocument}
         />
         
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-4 md:p-6">
           {documents.length > 0 ? (
             viewMode === "grid" ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {documents.map((document) => (
                   <DocumentCard
                     key={document.id}
@@ -78,7 +79,7 @@ const Index = () => {
                 ))}
               </div>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {documents.map((document) => (
                   <DocumentCard
                     key={document.id}
@@ -90,12 +91,13 @@ const Index = () => {
               </div>
             )
           ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-              <p>Không có tài liệu nào trong danh mục này</p>
+            <div className="flex flex-col items-center justify-center h-64 text-gray-500 bg-white p-8 rounded-xl shadow-sm border">
+              <FileQuestion className="h-12 w-12 text-gray-400 mb-4" />
+              <p className="mb-2 text-center">Không có tài liệu nào trong danh mục này</p>
               <Button
-                variant="outline"
+                variant="default"
                 size="sm"
-                className="mt-4"
+                className="mt-4 shadow-sm"
                 onClick={handleAddDocument}
               >
                 Thêm văn bản mới

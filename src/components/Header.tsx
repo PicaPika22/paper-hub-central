@@ -42,8 +42,8 @@ const Header = ({
   };
 
   return (
-    <div className="sticky top-0 z-30 bg-white border-b">
-      <div className="flex h-16 items-center px-4 gap-4">
+    <div className="sticky top-0 z-30 bg-white shadow-sm">
+      <div className="flex h-16 items-center px-4 md:px-6 gap-4">
         <Button
           variant="ghost"
           size="icon"
@@ -56,31 +56,26 @@ const Header = ({
         <div className="hidden md:flex items-center text-sm text-gray-500">
           <span className="cursor-pointer hover:text-blue-600" onClick={() => navigate('/')}>Thư viện</span>
           <span className="mx-2">&gt;</span>
-          <span>{getPageTitle()}</span>
+          <span className="font-medium text-gray-800">{getPageTitle()}</span>
         </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-3">
           <div className="relative hidden md:flex items-center">
             <Search className="absolute left-3 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Tìm kiếm văn bản..."
-              className="pl-10 w-64 bg-gray-50"
+              className="pl-10 w-64 bg-gray-50 focus:bg-white"
             />
           </div>
-          
-          <Button variant="outline" size="sm">
-            <User className="h-4 w-4 mr-2" />
-            admin
-          </Button>
         </div>
       </div>
       
-      <div className="flex items-center justify-between border-t px-4 py-2">
+      <div className="flex items-center justify-between px-4 md:px-6 py-3 border-t">
         {isHomePage ? (
           <Button 
             variant="default" 
             size="sm" 
-            className="bg-primary text-white hover:bg-primary/90"
+            className="bg-primary text-white hover:bg-primary/90 shadow-sm"
             onClick={onAddDocument}
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -95,12 +90,12 @@ const Header = ({
         
         {isHomePage ? (
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm">
-              <Filter className="h-4 w-4 mr-2" />
-              Bộ lọc
+            <Button variant="outline" size="sm" className="gap-1 shadow-sm">
+              <Filter className="h-4 w-4 mr-1" />
+              <span>Bộ lọc</span>
             </Button>
             
-            <div className="flex border rounded overflow-hidden">
+            <div className="flex border rounded-md overflow-hidden shadow-sm">
               <Button
                 variant="ghost"
                 size="sm"
@@ -124,6 +119,7 @@ const Header = ({
             variant="outline" 
             size="sm"
             onClick={() => navigate('/')}
+            className="shadow-sm"
           >
             Quay lại
           </Button>
