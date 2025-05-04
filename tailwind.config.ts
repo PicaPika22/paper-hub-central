@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,8 +26,8 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: '#4285F4',
+					foreground: '#FFFFFF'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -53,14 +54,22 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+					DEFAULT: '#4285F4',
+					foreground: '#FFFFFF',
+					primary: '#FFFFFF',
+					'primary-foreground': '#4285F4',
+					accent: 'rgba(255, 255, 255, 0.1)',
+					'accent-foreground': '#FFFFFF',
+					border: 'rgba(255, 255, 255, 0.2)',
+					ring: '#FFFFFF'
+				},
+				category: {
+					"internal": "#4285F4",
+					"contract": "#34A853",
+					"meeting": "#FBBC05",
+					"policy": "#EA4335",
+					"financial": "#9C27B0",
+					"marketing": "#FF9800"
 				}
 			},
 			borderRadius: {
